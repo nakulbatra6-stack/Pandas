@@ -20,4 +20,4 @@ for file in os.listdir(base_path):
             shutil.move(full_path, python_files)
             # shutil.move(file, python_files) #python looks for file in current working directory, NOT in your target folder.
         elif file.endswith(".txt"):
-            shutil.move(full_path, docs)
+            shutil.move(full_path, docs)#moving
