@@ -24,7 +24,7 @@ df = pd.read_csv("netflix_titles.csv")
 # print(df[( df["type"] == "TV Show") & (df["country"] == "India")])
 
 # Find top 10 latest releases
-# df['date_added'] = pd.to_datetime(df['date_added'].str.strip(), errors='coerce')
+df['date_added'] = pd.to_datetime(df['date_added'].str.strip(), errors='coerce')
 # print(df['date_added'])
 # print(df.sort_values(by="date_added", ascending=False).head(5))
 
@@ -48,8 +48,28 @@ df = pd.read_csv("netflix_titles.csv")
 # print("Missing after:", missing_after)
 
 # print(df.duplicated().sum())
-df.drop_duplicates(subset=["date_added"], inplace=True)#keeps NaN as a value
-print(df)
-print(df.groupby("date_added"))#EXCLUDES NaN by default
-print(df.groupby("date_added", dropna=False).size())
-print(df["date_added"].isnull().sum())
+
+# df.drop_duplicates(subset=["date_added"], inplace=True) #keeps NaN as a value
+# print(df["date_added"].count())#1767
+
+# print(df.groupby("date_added").count())#EXCLUDES NaN by default 1767
+
+# print(df.groupby("date_added", dropna=False).size())#dropna = Flase 1768,1767 if it is true
+
+
+# df["year_added"] = df["date_added"].dt.year #year extract
+# print(df["year_added"])
+
+#Find which year had most uploads on Netflix
+# print(df.groupby("year_added")["year_added"].count().max())
+# print(df.groupby("year_added").size().idxmax())#idxmax => Give me the index (label) where the maximum value occurs.
+
+#Top 5 countries producing content
+# country_counts = df.groupby("country").size()
+# country_counts = country_counts.sort_values(ascending=False)
+# print(country_counts.head(5))
+
+#Is Netflix adding more Movies or TV Shows over time?
+print(df.sort_values("date_added",ascending=False).head(50).groupby("type").size().idxmax())
+
+#pandas most important questions
