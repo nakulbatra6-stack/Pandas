@@ -24,8 +24,9 @@ df = pd.read_csv("netflix_titles.csv")
 # print(df[( df["type"] == "TV Show") & (df["country"] == "India")])
 
 # Find top 10 latest releases
-df['date_added'] = pd.to_datetime(df['date_added'])
-print(df['date_added'])
+# df['date_added'] = pd.to_datetime(df['date_added'].str.strip(), errors='coerce')
+# print(df['date_added'])
+# print(df.sort_values(by="date_added", ascending=False).head(5))
 
 # print(df.sort_values(by = "date_added",ascending=False))
 
@@ -33,5 +34,22 @@ print(df['date_added'])
 # print(df.groupby("type").size())
 # print(df["type"].value_counts())
 
+# Count missing BEFORE
+# missing_before = df["director"].isnull().sum()
 
-print("Office Laptop")
+# # Fill missing values
+# df["director"] = df["director"].fillna("No Director")
+
+# # Count missing AFTER
+# missing_after = df["director"].isnull().sum()
+
+# # Print results
+# print("Missing before:", missing_before)
+# print("Missing after:", missing_after)
+
+# print(df.duplicated().sum())
+df.drop_duplicates(subset=["date_added"], inplace=True)#keeps NaN as a value
+print(df)
+print(df.groupby("date_added"))#EXCLUDES NaN by default
+print(df.groupby("date_added", dropna=False).size())
+print(df["date_added"].isnull().sum())
