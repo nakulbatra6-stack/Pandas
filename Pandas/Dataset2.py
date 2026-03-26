@@ -70,6 +70,18 @@ df['date_added'] = pd.to_datetime(df['date_added'].str.strip(), errors='coerce')
 # print(country_counts.head(5))
 
 #Is Netflix adding more Movies or TV Shows over time?
-print(df.sort_values("date_added",ascending=False).head(50).groupby("type").size().idxmax())
+# print(df.sort_values("date_added",ascending=False).head(50).groupby("type").size().idxmax())
+
+# df["year_added"] = df["date_added"].dt.year
+# trend = df.groupby(["year_added", "type"]).size()
+# trend = trend.unstack()#reshapes your data from vertical → horizontal
+# print(trend)
+# print(trend.tail(1))
+
+#Which country dominates Netflix?
+# print(df.groupby("country").size().idxmax())
+# df["country"] = df["country"].str.split(", ")# , seperated list bnadiya sabka
+# df = df.explode("country")# break one row into many rows
+# print(df.groupby("country").size().idxmax())
 
 #pandas most important questions
